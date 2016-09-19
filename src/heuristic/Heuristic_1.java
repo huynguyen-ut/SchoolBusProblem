@@ -21,7 +21,7 @@ public class Heuristic_1 extends Heuristic {
 			bus.getRunningTime()+bus.getCurStopBus().getDurationToSchool()<this.limitTime)
 		   for(Station station:path.getStations())
 			 {
-			   if(!bus.isFull()&&station.isEmpty()){
+			   if(!bus.isFull()&&station.isEmpty()){  
 				   switch (typeDistance){
 				    case 1: distance=bus.getCurStopBus().distanceToX1(station); // 2d
     		  		        break;
