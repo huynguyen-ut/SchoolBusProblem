@@ -22,7 +22,7 @@ public class Heuristic_2 extends Heuristic_1 {
 		List<Station> stations=this.getStations();
 		Path path1=null;
 		Path path2=null;
-		Station station1=null;
+		Station station1=null; 
 		Station station2=null;
 		for(int i=0;i<stations.size()-1;i++)
 			for(int j=0;j<stations.size();j++)
