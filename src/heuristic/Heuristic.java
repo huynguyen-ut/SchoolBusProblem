@@ -28,7 +28,7 @@ public abstract class Heuristic {
 		  this.limitTime=30;
 		  this.delta=0.00834;
 		  this.typeDistance=typeDistance;
-		  stations=new ArrayList<Station>();
+		  stations=new ArrayList<Station>(); 
 		  buses=new ArrayList<Bus>();
 		  Scanner inFile = new Scanner(new File(file));
      	  String t = inFile.nextLine();
