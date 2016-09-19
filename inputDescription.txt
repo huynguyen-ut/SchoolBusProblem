@@ -1,3 +1,0 @@
-C: capacity of a bus;  V: set of potential;  S: set of student;
-Cij: cost traversing from top i to stop j;
-Sil: 1 if student l reach stop i;
