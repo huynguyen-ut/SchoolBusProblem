@@ -23,30 +23,36 @@ public abstract class Heuristic {
 	  double limitTime;
 	  double delta;	
 	  int typeDistance;
+	  int distances[][];
+	  int durations[][];
 	  public abstract void run() throws IOException, JSONException, CloneNotSupportedException;
 	  public Heuristic(String file,int typeDistance) throws IOException, JSONException, NumberFormatException, CloneNotSupportedException{
-		  this.limitTime=30;
-		  this.delta=0.00834;
+		  this.limitTime=1800;
+		  this.delta=30;
 		  this.typeDistance=typeDistance;
 		  stations=new ArrayList<Station>(); 
 		  buses=new ArrayList<Bus>();
 		  Scanner inFile = new Scanner(new File(file));
      	  String t = inFile.nextLine();
      	  String[] tokens = t.split("[\\t]");
-     	  sch=new School(1,Double.parseDouble(tokens[0]),Double.parseDouble(tokens[1]));
+     	  sch=new School(0,Double.parseDouble(tokens[0]),Double.parseDouble(tokens[1]));
      	  Bus b;
      	  for(int i=0;i<Integer.parseInt(tokens[2]);i++) // initial bus
      	  { b=new Bus(i,Integer.parseInt(tokens[3]),Double.parseDouble(tokens[4]),this.sch);
      	    this.buses.add(b);
      	  }
+     	  
+     	  
      	  Station sb;
+     	  sb=new Station(0,0,0);
+     	 this.stations.add(sb);
      	  int ib=1;
      	  while(inFile.hasNextLine()){  // initial bus stop
      		  t = inFile.nextLine();
      		  tokens = t.split("[\\t]");
      		 sb=new Station(ib,Double.parseDouble(tokens[0]),Double.parseDouble(tokens[1]));
      		
-     		 switch (typeDistance){//compute distance
+     	/*	 switch (typeDistance){//compute distance
      		  case 1: sb.setDistanceToSchool(sb.distanceToX1(sch)); // 2d
      		  		  break;
      		  case 2: sb.setDistanceToSchool(sb.distanceToX2(sch)); // with lat lon
@@ -56,15 +62,35 @@ public abstract class Heuristic {
      			      sb.setTimeToS(e.getDuration());        // set duration
      			      break;
      		  default: break;
-     		  } 
+     		  }*/ 
      		 
      		
      		 for(int i=0;i<Integer.parseInt(tokens[2]);i++)// add student
      			 sb.addStudent(new Student(i,0,0));
      		 ib++;
      		stations.add(sb);
-     	   }	   
-		  
+     	   }	  
+         	 inFile = new Scanner(new File("distances.txt"));
+		 /*int nStation=Integer.parseInt(inFile.nextLine()); 
+		 Station station;
+		 for(int i=0;i<nStation;i++)
+			 station= new Station(i,0,0);*/
+		 
+         int x=0;
+         int y=0;
+         int i=1;
+     	 while(inFile.hasNextLine())
+		 {   
+     		 t= inFile.nextLine(); 
+     		 tokens = t.split("[\\t]");
+     		 this.stations.get(x).addDistanceToX(Integer.parseInt(tokens[0]));
+     		 this.stations.get(x).addDurationToX(Integer.parseInt(tokens[1]));
+     		 if(i%41==0){
+		    	x++;
+		    	
+		     }
+     		 i++;
+		 }
 		  Collections.sort(stations);
 		  inFile.close();
        }
